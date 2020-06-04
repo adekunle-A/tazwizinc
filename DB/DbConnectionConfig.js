@@ -6,9 +6,10 @@ const URL = "mongodb+srv://dbAdminUser:ZIEN1QEHCl1lcCYf@cluster0-fz3nf.mongodb.n
 const connectDB = async () => {
 
    await mongoose.connect(URL, {
-
+      useCreateIndex: true,
       useUnifiedTopology:true, 
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useFindAndModify: false
    })
    
    console.log('Database connection successful.......')

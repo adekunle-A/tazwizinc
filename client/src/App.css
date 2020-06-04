@@ -6,6 +6,12 @@
   height: 40vmin;
   pointer-events: none;
 }
+#dashboard{
+  margin-top: 10%;
+}
+table{
+  margin-top: 3%;
+}
 #FormCSS{
   /* position: absolute;
   top: 40%;
