@@ -11,7 +11,7 @@ const port = process.env.PORT || 3080;
 
 app.use(cors())
 app.use(express.json())
-
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 //connect to DB
 connectDB();
@@ -20,12 +20,13 @@ connectDB();
 app.use('/products', productsRoutes);
 app.use('/users', usersRoutes);
 app.use('/customers', customersRoutes);
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client','build', 'index.html'));
+});
 //serves the page if in production
 if(process.env.NODE_ENV === 'production'){
   app.get('*', (req, res) => {
-    app.use(express.static('client/build'));
-     res.sendFile(path.resolve(__dirname, 'client','build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client','build', 'index.html'));
   });
 }
 

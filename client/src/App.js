@@ -18,7 +18,7 @@ function App() {
                 <MenuBar />
                 {/* <Login /> */}
                 <Switch>
-                  <Route path="/" exact={true} component={Login}/>
+                  <Route path="/" exact={true} component={Dashboard}/>
                   <Route path="/products" exact component={Products}/>
                   <Route path="/customers" exact component={Customers}/>
                   <Route path="/dashboard" exact component={Dashboard}/>
