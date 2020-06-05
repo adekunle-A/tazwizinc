@@ -14,7 +14,7 @@ const AddProduct = () => {
         e.preventDefault();
         //setProduct(PrevProduct => [...PrevProduct, {name,price,description}]) //create a copy of the array and add new data to it 
         //add the product to the database
-        axios.post('http://localhost:3080/products', {name,price,description}) //TODO to call function from context
+        axios.post('/products', {name,price,description}) //TODO to call function from context
             .then(res => {
                console.log(res)
             })

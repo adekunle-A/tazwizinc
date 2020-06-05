@@ -6,7 +6,7 @@ export const ProductProvider = props => {
 
     //fetch products infromation from the database
    const getProducts = () => {
-        axios.get('http://localhost:3080/products')
+        axios.get('/products')
              .then(res => {
                 setProduct(res.data)
              }).catch(err =>{ console.error(err);
@@ -17,7 +17,7 @@ export const ProductProvider = props => {
     });
     //add product info into the database
     const postProduct = () => {
-        axios.post('http://localhost:3080/products')
+        axios.post('/products')
              .then(res => {
                 setProduct(res.data)})
             .catch(err =>{ 
@@ -25,7 +25,7 @@ export const ProductProvider = props => {
         })
     }
     const deleteProduct = () => {
-        axios.delete('http://localhost:3080/products')
+        axios.delete('/products/')
              .then(res => {
                 setProduct(res.data)})
             .catch(err =>{ 
@@ -34,7 +34,7 @@ export const ProductProvider = props => {
     }
     //update product
     const updateProduct = () => {
-        axios.patch('http://localhost:3080/products')
+        axios.patch('/products/')
              .then(res => {
                 setProduct(res.data)})
             .catch(err =>{ 

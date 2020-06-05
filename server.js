@@ -13,18 +13,17 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+//connect to DB
 connectDB();
+
+//use api
 app.use('/products', productsRoutes);
 app.use('/users', usersRoutes);
 app.use('/customers', customersRoutes);
-//use api
+
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client','build', 'index.html'));
   });
-// app.use('/api/product', products)
-// app.get('*', (req, res, next) => {
-//     res.sendFile(__dirname + '/client/build/index.html')
-// })
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

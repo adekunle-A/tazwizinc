@@ -5,18 +5,16 @@ import AddProduct from '../components/AddProduct';
 import axios from 'axios'
 const Products = () => {
 
-    const [product, setProduct] = useContext(ProductContext)
+   const [product, setProduct] = useContext(ProductContext)
+   
    const deleteProduct = (id) => {
-       console.log(id)
-       axios.delete('http://localhost:3080/products/${id}')
+       axios.delete('/products/'+id)
             .then(res => {
-                setProduct(res.data)})
+                console.log(res)
+            })
             .catch(err =>{ 
                 console.error(err);
         })
-       // setProduct(PrevProduct => [...PrevProduct.filter(product => product.id !== id)]);
-        // remove product from db
-
     }
     const updateProduct = (id) => {
         console.log(id)
