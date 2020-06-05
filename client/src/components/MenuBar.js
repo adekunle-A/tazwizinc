@@ -4,11 +4,11 @@ export default function MenuBar() {
     return (
         <div>
             <Navbar bg="dark" variant="dark" fixed="top">
-                <Navbar.Brand href="#home">Tazwiz Inc</Navbar.Brand>
-                <Nav className="mr-auto">
-                <Nav.Link href="#home">Products</Nav.Link>
-                <Nav.Link href="#customers">Customers</Nav.Link>
-
+                <Navbar.Brand href="/dasboard">Tazwiz Inc</Navbar.Brand>
+                <Nav className="mr-auto" variant="" defaultActiveKey="/dashboard">
+                    <Nav.Link href="/dashboard">Home</Nav.Link>
+                    <Nav.Link href="/products">Products</Nav.Link>
+                    <Nav.Link href="/customers" >Customers</Nav.Link>
                 </Nav>
             </Navbar>
         </div>

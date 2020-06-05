@@ -1,17 +1,22 @@
-import React, {useState, createContext} from 'react'
-import {v4 as uuid} from "uuid"; 
+import React, {useState, useEffect,createContext} from 'react'
+import axios from 'axios'
 
 export const CustomerContext = createContext();
 export const CustomerProvider = props => {
-   const [customer, setCustomer] = useState(
-       [
-           {id: uuid(), name: 'Bob', email: "abc@yahoo.com", address: "water descrip", approved:false},
-           {id: uuid(), name: 'Smith', email: "abc3f@yahoo.com", address: "water descrip", approved:true},
-           {id: uuid(), name: 'Stella', email:"abc@yahoo.com", address: "water descrip", approved:false},
-           {id: uuid(), name: 'Steph', email: "abhhc@yahoo.com", address: "water descrip", approved:false},
-           {id: uuid(), name: 'Wale', email: "test@yahoo.com", address: "water descrip", approved:false},
-       
-      ]);
+   const [customer, setCustomer] = useState([]);
+   const getCustomers = () => {
+      axios.get('http://localhost:3080/customers')
+           .then(res => {
+               setCustomer(res.data)
+               console.log(res.data)
+         }).catch(err =>{ console.error(err);
+      })
+    }
+
+    useEffect(() => {
+      getCustomers();
+    });
+    
    return (
        <CustomerContext.Provider value={[customer,setCustomer]}>
            {props.children}

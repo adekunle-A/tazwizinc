@@ -5,9 +5,11 @@ const path = require('path')
 const productsRoutes = require('./api/products')
 const usersRoutes = require('./api/users')
 const customersRoutes = require('./api/customers')
+const cors = require('cors')
 
 const port = process.env.PORT || 3080;
 
+app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'client/build')));
 

@@ -1,16 +1,47 @@
-import React, {useState, createContext} from 'react'
-import {v4 as uuid} from "uuid"; 
-
+import React, {useState, useEffect,createContext} from 'react'
+import axios from 'axios'
 export const ProductContext = createContext();
 export const ProductProvider = props => {
-   const [product, setProduct] = useState(
-       [
-           {id: uuid(), name: 'Water', price: 7, description: "water descrip"},
-           {id: uuid(), name: 'Milk', price: 17, description: "milk descrip"},
-           {id: uuid(), name: 'Soap', price: 6, description: "soap descrip"},
-           {id: uuid(), name: 'Rice', price: 3, description: "rice descrip"},
-       
-      ]);
+      const [product, setProduct] = useState([]);
+
+    //fetch products infromation from the database
+   const getProducts = () => {
+        axios.get('http://localhost:3080/products')
+             .then(res => {
+                setProduct(res.data)
+             }).catch(err =>{ console.error(err);
+             })
+    }
+    useEffect(() => {
+        getProducts();
+    });
+    //add product info into the database
+    const postProduct = () => {
+        axios.post('http://localhost:3080/products')
+             .then(res => {
+                setProduct(res.data)})
+            .catch(err =>{ 
+                console.error(err);
+        })
+    }
+    const deleteProduct = () => {
+        axios.delete('http://localhost:3080/products')
+             .then(res => {
+                setProduct(res.data)})
+            .catch(err =>{ 
+                console.error(err);
+        })
+    }
+    //update product
+    const updateProduct = () => {
+        axios.patch('http://localhost:3080/products')
+             .then(res => {
+                setProduct(res.data)})
+            .catch(err =>{ 
+                console.error(err);
+        })
+    }
+
    return (
        <ProductContext.Provider value={[product,setProduct]}>
            {props.children}

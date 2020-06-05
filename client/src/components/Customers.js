@@ -1,7 +1,6 @@
-import React, {useState,useContext } from 'react'
+import React, {useContext } from 'react'
 import {CustomerContext} from '../context/CustomerContext'
-import {Container,Button, Table} from 'react-bootstrap'
-import { Prev } from 'react-bootstrap/PageItem';
+import {Container,Table} from 'react-bootstrap'
 
 const Customers = () => {
     const [customer, setCustomer] = useContext(CustomerContext)
@@ -29,36 +28,41 @@ const Customers = () => {
         
      }
     return (
-        <div>
-            <Container className="p-0" fluid>
-                 <Table Table striped hover className="mb-0">
-                    {customer.map(({id, name, email, address, approved}) => (
-                        <tbody key={id}>
-                            <tr> 
-                                <td>
-                                
-                                    {name}
-                                </td>
-                                <td>
-                                    {email}
-                                </td>
-                                <td>
-                                    {address}
-                                </td>
-                                <td>
-                                    {approved}
-                                </td>
-                                <td>
-                                    <input type="checkbox"  checked={approved} onChange={() => handleCheckboxChange(id)} />
-                                
-                                </td>
-                            </tr>
-                        </tbody>                                
-                    ))}
-                  </Table>
-            </Container>
-        </div>
+        <Container className="container" id="dataDiv" fluid>
+            <Table Table striped hover className="mb-0">
+                <tr>
+                    <th>UUID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Approved</th>
+                </tr>
+                {customer.map(({_id, name, email, address, approved}) => (
+                    <tbody key={_id}>
+                        <tr> 
+                            <td>
+                                {_id}
+                            </td>
+                            <td>
+                                {name}
+                            </td>
+                            <td>
+                                {email}
+                            </td>
+                            <td>
+                                {address}
+                            </td>
+                            <td>
+                                {approved}
+                            </td>
+                            <td>
+                                <input type="checkbox"  checked={approved} onChange={() => handleCheckboxChange(_id)} />
+                            </td>
+                        </tr>
+                    </tbody>                                
+                ))}
+            </Table>
+        </Container>
     )
 }
-
 export default Customers;

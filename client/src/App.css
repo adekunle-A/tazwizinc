@@ -6,7 +6,7 @@
   height: 40vmin;
   pointer-events: none;
 }
-#dashboard{
+#dashboard, #dataDiv{
   margin-top: 10%;
 }
 table{
