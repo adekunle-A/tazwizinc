@@ -12,7 +12,7 @@ const AddProduct = () => {
     //when add is clicked
     const onSubmit = (e) => {
         e.preventDefault();
-        //setProduct(PrevProduct => [...PrevProduct, {name,price,description}]) //create a copy of the array and add new data to it 
+
         //add the product to the database
         axios.post('/products', {name,price,description}) //TODO to call function from context
             .then(res => {
@@ -29,7 +29,7 @@ const AddProduct = () => {
                         <input type="text" className="form-control mb-2 mr-sm-2" id="name" placeholder="Enter Product Name" name="name"  value={name} onChange={(e) => setName(e.target.value)} required/>
                     </div>
                     <div className="col-sm">
-                        <input type="number" className="form-control mb-2 mr-sm-2" id="price" placeholder="Enter Product Price" name="price" value={price} onChange={(e) => setPrice(e.target.value)} required/>
+                        <input type="number" min="1"className="form-control mb-2 mr-sm-2" id="price" placeholder="Enter Product Price" name="price" value={price} onChange={(e) => setPrice(e.target.value)} required/>
                     </div>
                     <div className="col-sm">
                         <input type="text" className="form-control mb-2 mr-sm-2" id="price" placeholder="Enter Product Description" name="description"  value={description} onChange={(e) => setDescription(e.target.value)} required/>

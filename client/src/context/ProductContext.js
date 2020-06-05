@@ -15,33 +15,6 @@ export const ProductProvider = props => {
     useEffect(() => {
         getProducts();
     });
-    //add product info into the database
-    const postProduct = () => {
-        axios.post('/products')
-             .then(res => {
-                setProduct(res.data)})
-            .catch(err =>{ 
-                console.error(err);
-        })
-    }
-    const deleteProduct = () => {
-        axios.delete('/products/')
-             .then(res => {
-                setProduct(res.data)})
-            .catch(err =>{ 
-                console.error(err);
-        })
-    }
-    //update product
-    const updateProduct = () => {
-        axios.patch('/products/')
-             .then(res => {
-                setProduct(res.data)})
-            .catch(err =>{ 
-                console.error(err);
-        })
-    }
-
    return (
        <ProductContext.Provider value={[product,setProduct]}>
            {props.children}

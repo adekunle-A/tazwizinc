@@ -2,11 +2,12 @@ import React, { useContext } from 'react'
 import {ProductContext} from '../context/ProductContext'
 import {Container,Button, Table} from 'react-bootstrap'
 import AddProduct from '../components/AddProduct';
+import Moment from 'react-moment';
 import axios from 'axios'
 const Products = () => {
 
    const [product, setProduct] = useContext(ProductContext)
-   
+
    const deleteProduct = (id) => {
        axios.delete('/products/'+id)
             .then(res => {
@@ -29,13 +30,16 @@ const Products = () => {
                 <AddProduct />
              </div>
             <Table Table striped hover className="mb-0">
-                 <tr>
-                    <th>ProductName</th>
-                    <th>ProductPrice</th>
-                    <th>ProductDescription</th>
-                    <th>ProductCreatedDate</th>
-                    <th>Action</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>ProductName</th>
+                        <th>ProductPrice (CAD)</th>
+                        <th>ProductDescription</th>
+                        <th>ProductCreatedDate</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
                 {product.map(({_id, productName, ProductPrice, ProductDescription, ProductCreatedDate}) => (
                     <tbody key={_id}>
                         <tr> 
@@ -53,7 +57,7 @@ const Products = () => {
                             </td>
                             <td>
                                     {/* <input value ={description}  onChange={(e) => setDecription(e.target.value)} /> */}
-                                {ProductCreatedDate}
+                                    <Moment format="YYYY-MM-DD">{ProductCreatedDate}</Moment> 
                             </td>
                             <td>
                                 <Button variant="outline-primary" size="sm" onClick={() => updateProduct(_id)}>

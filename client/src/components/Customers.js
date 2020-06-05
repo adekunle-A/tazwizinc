@@ -1,42 +1,36 @@
-import React, {useContext } from 'react'
+import React, {useContext, useState } from 'react'
 import {CustomerContext} from '../context/CustomerContext'
 import {Container,Table} from 'react-bootstrap'
-
+import axios from 'axios'
 const Customers = () => {
     const [customer, setCustomer] = useContext(CustomerContext)
-
-    const updateCustomer = (id) => {
-        console.log(id)
-         // axios.patch('')
-         //      .then(res => this.setState( {products: this.state.products.filter(product => product.id !==id )}) )
-         //      .catch(err => console.log(err))
-         
-     }
+    const [approve, setApprove] = useState(false)
      
      //when the check box is toggled
     const handleCheckboxChange = (docid) =>{
-        customer.forEach(element => {
-            if(element.id === docid){
-                console.log(element.approved);
-                console.log([customer])
-            }
-           
-        });
-        //setCustomer(PrevCustomer => [...PrevProduct.filter(product => product.id === id)])
-        //setCustomer(PrevCustomer => [ customer[0].approved = !approved])
-        //setCustomer(PrevProduct => [customer[0].approved = true,{}...PrevProduct.filter(product => product.id === id)]);
+        console.log(docid)
+        console.log(approve)
+        setApprove(!approve)
+        axios.patch('/customers/'+ docid, {approved: approve})
+        .then(res => { 
+            console.log(res)
+        })
+        .catch(err => console.log(err))
         
      }
     return (
         <Container className="container" id="dataDiv" fluid>
             <Table Table striped hover className="mb-0">
-                <tr>
-                    <th>UUID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Approved</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>UUID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Approved</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
                 {customer.map(({_id, name, email, address, approved}) => (
                     <tbody key={_id}>
                         <tr> 
@@ -53,10 +47,10 @@ const Customers = () => {
                                 {address}
                             </td>
                             <td>
-                                {approved}
+                                {approved.toString()}
                             </td>
                             <td>
-                                <input type="checkbox"  checked={approved} onChange={() => handleCheckboxChange(_id)} />
+                                <input type="checkbox"  checked={approved} onClick={() => setApprove(!approved)} onChange={() => handleCheckboxChange(_id)} />
                             </td>
                         </tr>
                     </tbody>                                
