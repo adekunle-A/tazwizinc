@@ -23,7 +23,7 @@ router.get('/:id', (req, res, next) => {
 })
 //POST
 router.post('/', (req, res, next) => { 
-
+console.log(req.body)
     const newProduct = new Product({
         productName: req.body.name,
         ProductPrice:  req.body.price,

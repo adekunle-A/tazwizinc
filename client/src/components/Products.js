@@ -42,8 +42,10 @@ const Products = () => {
     return (
         <Container className="container" id="dataDiv" fluid>
              <div>
+                 <h2 className="pb-2">Add Product</h2>
                 <AddProduct />
              </div>
+             <h2 className="pt-5">Products</h2>
              <p>Edit mode {editing.toString()} </p>
             <Table Table striped hover className="mb-0">
                 <thead>
@@ -74,7 +76,7 @@ const Products = () => {
                             </td>
                             <td>
                                 <Button variant="outline-primary" size="sm" onClick={() => editing ? SaveProduct(_id): EditProduct(_id)}>
-                                   { editing === false ?  'Edit': 'Save' }
+                                   { editing === false ?  'Edit Price': 'Save' }
                                 </Button>
                             </td>
                             <td>

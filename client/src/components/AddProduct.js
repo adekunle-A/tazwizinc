@@ -14,7 +14,7 @@ const AddProduct = () => {
         e.preventDefault();
 
         //add the product to the database
-        axios.post('/products', {name,price,description}) //TODO to call function from context
+        axios.post('/api/products', {name,price,description}) //TODO to call function from context
             .then(res => {
                console.log(res)
             })
