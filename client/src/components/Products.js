@@ -1,15 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import {ProductContext} from '../context/ProductContext'
 import {Container,Button, Table} from 'react-bootstrap'
 import AddProduct from '../components/AddProduct';
 import Moment from 'react-moment';
 import axios from 'axios'
 const Products = () => {
-
+   const [productInfo, setProductInfo] = useState({})
+   const [name, setName] = useState('');
+   const [price, setPrice] = useState('');  
+   const [editing, SetEditing] = useState(false)
    const [product, setProduct] = useContext(ProductContext)
 
+    //delete product when remove is clicked
    const deleteProduct = (id) => {
-       axios.delete('/products/'+id)
+       axios.delete('/api/products/'+id)
             .then(res => {
                 console.log(res)
             })
@@ -17,13 +21,24 @@ const Products = () => {
                 console.error(err);
         })
     }
-    const updateProduct = (id) => {
-        console.log(id)
-         // axios.patch('')
-         //      .then(res => this.setState( {products: this.state.products.filter(product => product.id !==id )}) )
-         //      .catch(err => console.log(err))
-         setProduct(PrevProduct => [...PrevProduct.filter(product => product.id !== id)]);
+
+    //save the data once the save button is clicked
+    const SaveProduct = (pID) => {
+        SetEditing(false);
+        console.log(price)
+        axios.patch('/api/products/'+ pID, {ProductPrice: price})
+        .then(res => { 
+            console.log(res)
+        })
+        .catch(err => console.log(err))
+        
      }
+
+     //sets edit mode
+    const EditProduct = (id) => {
+        SetEditing( editing => !editing);
+     }
+
     return (
         <Container className="container" id="dataDiv" fluid>
              <div>
@@ -31,6 +46,7 @@ const Products = () => {
              </div>
             <Table Table striped hover className="mb-0">
                 <thead>
+                 <p>Edit mode {editing.toString()} </p>
                     <tr>
                         <th>ProductName</th>
                         <th>ProductPrice (CAD)</th>
@@ -43,25 +59,22 @@ const Products = () => {
                 {product.map(({_id, productName, ProductPrice, ProductDescription, ProductCreatedDate}) => (
                     <tbody key={_id}>
                         <tr> 
-                            <td>
-                                {/* <input value={name} onChange={(e) => setName(e.target.value)}/> */}
+                            <td contenteditable={editing} onInput={(e) => setName(e.target.innerText)} >
                                 {productName}
                             </td>
-                            <td>
+                            <td contenteditable='true' onInput={(e) => setPrice(e.target.innerText)}>
                                     {/* <input value ={price} onChange={(e) => setPricee(e.target.price)}/> */}
                                 {ProductPrice}
                             </td>
                             <td>
-                                    {/* <input value ={description}  onChange={(e) => setDecription(e.target.value)} /> */}
                                 {ProductDescription}
                             </td>
                             <td>
-                                    {/* <input value ={description}  onChange={(e) => setDecription(e.target.value)} /> */}
                                     <Moment format="YYYY-MM-DD">{ProductCreatedDate}</Moment> 
                             </td>
                             <td>
-                                <Button variant="outline-primary" size="sm" onClick={() => updateProduct(_id)}>
-                                    Edit
+                                <Button variant="outline-primary" size="sm" onClick={() => editing ? SaveProduct(_id): EditProduct(_id)}>
+                                   { editing === false ?  'Edit': 'Save' }
                                 </Button>
                             </td>
                             <td>

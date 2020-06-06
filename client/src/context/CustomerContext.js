@@ -5,7 +5,7 @@ export const CustomerContext = createContext();
 export const CustomerProvider = props => {
    const [customer, setCustomer] = useState([]);
    const getCustomers = () => {
-      axios.get('/customers')
+      axios.get('/api/customers')
            .then(res => {
                setCustomer(res.data)
          }).catch(err =>{ console.error(err);

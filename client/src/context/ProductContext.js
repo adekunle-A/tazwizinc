@@ -6,7 +6,7 @@ export const ProductProvider = props => {
 
     //fetch products infromation from the database
    const getProducts = () => {
-        axios.get('/products')
+        axios.get('/api/products')
              .then(res => {
                 setProduct(res.data)
              }).catch(err =>{ console.error(err);

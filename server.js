@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const connectDB = require('./DB/DbConnectionConfig');
 const path = require('path')
-const productsRoutes = require('./api/products')
-const usersRoutes = require('./api/users')
-const customersRoutes = require('./api/customers')
+const productsRoutes = require('./apiRoutes/api/products')
+const usersRoutes = require('./apiRoutes/api/users')
+const customersRoutes = require('./apiRoutes/api/customers')
 const cors = require('cors')
 
 const port = process.env.PORT || 3080;
@@ -17,17 +17,18 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 connectDB();
 
 //use api
-app.use('/products', productsRoutes);
-app.use('/users', usersRoutes);
-app.use('/customers', customersRoutes);
+app.use('/api/products', productsRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/customers', customersRoutes);
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client','build', 'index.html'));
 });
 //serves the page if in production
-if(process.env.NODE_ENV === 'production'){
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client','build', 'index.html'));
-  });
-}
+// if(process.env.NODE_ENV === 'production'){
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'client','build', 'index.html'));
+//   });
+// }
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

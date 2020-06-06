@@ -8,10 +8,8 @@ const Customers = () => {
      
      //when the check box is toggled
     const handleCheckboxChange = (docid) =>{
-        console.log(docid)
-        console.log(approve)
         setApprove(!approve)
-        axios.patch('/customers/'+ docid, {approved: approve})
+        axios.patch('/api/customers/'+ docid, {approved: approve})
         .then(res => { 
             console.log(res)
         })
