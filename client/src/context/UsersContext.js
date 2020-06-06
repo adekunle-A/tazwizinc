@@ -1,25 +1,29 @@
 import React, {useState, useEffect,createContext} from 'react'
 import axios from 'axios'
-export const UsersContext = createContext();
+export const UserContext = createContext();
 
-export const UsersProviderProvider = props => {
+export const UserProvider = props => {
       const [users, setUsers] = useState([]);
+      const [isLoggedIn, setIsLoggedIn] = useState(false);
+    //Get Token
 
     //fetch products infromation from the database
    const getUsers = () => {
-        axios.get('/api/users')
+        axios.get('/api/authUsers')
              .then(res => {
-                setProduct(res.data)
+                setUsers(res.data)
+                setIsLoggedIn(true)
              }).catch(err =>{ console.error(err);
-             })
+        })
     }
     useEffect(() => {
         getUsers();
     });
+    
    return (
-       <UsersContext.Provider value={[users,setUsers]}>
+       <UserContext.Provider value={[isLoggedIn, setIsLoggedIn] }>
            {props.children}
-        </UsersContext.Provider>  
+        </UserContext.Provider>  
    )
 }
- export default  UsersProvider;
+ export default UserProvider;

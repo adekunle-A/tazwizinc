@@ -4,6 +4,7 @@ const connectDB = require('./DB/DbConnectionConfig');
 const path = require('path')
 const productsRoutes = require('./apiRoutes/api/products')
 const usersRoutes = require('./apiRoutes/api/users')
+const authUsersRoutes = require('./apiRoutes/api/authUsers')
 const customersRoutes = require('./apiRoutes/api/customers')
 const cors = require('cors')
 
@@ -19,6 +20,7 @@ connectDB();
 //use api
 app.use('/api/products', productsRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/authUsers', authUsersRoutes);
 app.use('/api/customers', customersRoutes);
 
 app.get('*', (req, res) => {

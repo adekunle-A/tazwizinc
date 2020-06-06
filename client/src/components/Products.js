@@ -44,9 +44,9 @@ const Products = () => {
              <div>
                 <AddProduct />
              </div>
+             <p>Edit mode {editing.toString()} </p>
             <Table Table striped hover className="mb-0">
                 <thead>
-                 <p>Edit mode {editing.toString()} </p>
                     <tr>
                         <th>ProductName</th>
                         <th>ProductPrice (CAD)</th>
