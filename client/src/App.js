@@ -22,10 +22,10 @@ function App() {
                 <MenuBar />
                 {/* <Login /> */}
                 <Switch>
-                  {/* <Route path="/" exact={true} component={Login}></Route> */}
-                  < Route exact path="/">
+                  <Route path="/" exact={true} component={Login}></Route>
+                  {/* < Route exact path="/">
                     {isLoggedIn ? <Redirect to="/dashboard" /> : <Dashboard />}
-                  </Route>
+                  </Route> */}
                   <Route path="/products" exact component={Products}/>
                   <Route path="/customers" exact component={Customers}/>
                   <Route path="/dashboard" exact component={Dashboard}/>

@@ -7,7 +7,7 @@ const Dashboard = () => {
     const msg = useContext(UsersContext)
     return (
             <div className="container" id="dashboard">
-                <Products />
+                {/* <Products /> */}
                 <Customers />
                 {msg}
             </div>
