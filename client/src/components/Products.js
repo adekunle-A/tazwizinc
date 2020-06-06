@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState,useEffect } from 'react'
 import {ProductContext} from '../context/ProductContext'
 import {Container,Button, Table} from 'react-bootstrap'
 import AddProduct from '../components/AddProduct';
@@ -9,7 +9,21 @@ const Products = () => {
    const [name, setName] = useState('');
    const [price, setPrice] = useState('');  
    const [editing, SetEditing] = useState(false)
-   const [product, setProduct] = useContext(ProductContext)
+//    const [product, setProduct] = useContext(ProductContext)
+
+   const [product, setProduct] = useState([]);
+
+        //fetch products infromation from the database
+        const getProducts = () => {
+            axios.get('/api/products')
+                .then(res => {
+                    setProduct(res.data)
+                }).catch(err =>{ console.error(err);
+                })
+        }
+        useEffect(() => {
+            getProducts();
+        });
 
     //delete product when remove is clicked
    const deleteProduct = (id) => {
