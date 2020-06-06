@@ -8,7 +8,7 @@ const authUsersRoutes = require('./apiRoutes/api/authUsers')
 const customersRoutes = require('./apiRoutes/api/customers')
 const cors = require('cors')
 
-const port = process.env.PORT || 3080;
+const port = process.env.PORT || 3050;
 
 app.use(cors())
 app.use(express.json())
