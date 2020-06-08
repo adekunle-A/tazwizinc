@@ -27,10 +27,9 @@ router.get('/:id', (req, res) => {
 //POST
 //add product to the database
 router.post('/', (req, res, next) => { 
-console.log(req.body)
     const newProduct = new Product({
         productName: req.body.name,
-        ProductPrice:  req.body.price,
+        ProductPrice: parseFloat(req.body.price).toFixed(2),
         ProductDescription:  req.body.description,
     })
     //save the product to the database
