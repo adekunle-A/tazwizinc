@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react'
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import Login from './components/Login';
+import Login from './pages/Login';
 import MenuBar from './components/MenuBar';
 import {ProductProvider} from './context/ProductContext'
 import Dashboard from './pages/Dashboard';
-import Products from './components/Products';
-import Customers from './components/Customers';
+import Products from './pages/Products';
+import Customers from './pages/Customers';
 import {BrowserRouter, Switch,Route} from 'react-router-dom'
 import { CustomerProvider } from './context/CustomerContext';
 import {UserProvider} from './context/UsersContext';

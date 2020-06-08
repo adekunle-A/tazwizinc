@@ -13,10 +13,10 @@ export const MenuBar = () => {
                         <Nav.Link href="/dashboard">Home</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="/products">Products</Nav.Link>
+                        <Nav.Link href="/products">Products</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey="/customers" >Customers</Nav.Link>
+                        <Nav.Link href="/customers" >Customers</Nav.Link>
                     </Nav.Item>
                      <Nav.Link href="/logout" onClick={()=> localStorage.clear()}>LogOut</Nav.Link>
                 </Nav>
