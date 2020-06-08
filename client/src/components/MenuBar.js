@@ -1,19 +1,10 @@
-import React,{useContext,useEffect} from 'react'
+import React from 'react'
 import {Navbar, Nav} from 'react-bootstrap'
-import {UserContext} from '../context/UsersContext'
+
 export const MenuBar = () => {
-    const isAuth = JSON.parse(localStorage.getItem('isAuth'));
-    const [isLoggedIn, setIsLoggedIn] = useContext(UserContext)
-    
-    useEffect(() => {
-        if(isAuth != null ){
-            setIsLoggedIn(isLoggedIn)
-        }else{
-            setIsLoggedIn(false)
-        }
-        
-    });
-    return isLoggedIn === true ? (
+    const isAuth = localStorage.getItem('authToken');
+ 
+    return isAuth!=null ? (
         <div>
             <Navbar bg="dark" variant="dark" fixed="top">
             <Navbar.Brand href="/dashboard">Tazwiz Inc</Navbar.Brand>

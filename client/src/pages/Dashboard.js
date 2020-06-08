@@ -1,5 +1,4 @@
 import React from 'react';
-import Products from '../components/Products';
 import MenuBar from '../components/MenuBar';
 import AddProduct from '../components/AddProduct';
 //dashbaord page

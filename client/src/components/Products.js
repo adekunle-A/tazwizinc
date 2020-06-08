@@ -27,16 +27,18 @@ const Products = () => {
     //save the data once the save button is clicked
     const SaveProduct = (pID) => {
         SetEditing(false);
-        if(price != '' && !isNaN(price)){
-            axios.patch('/api/products/'+ pID, {ProductPrice: price})
-            .then(res => { 
-                console.log(res)
-            })
-            .catch(err => console.log(err))
-            
+        if(price != '' ){
+            if(!isNaN(price)){
+                axios.patch('/api/products/'+ pID, {ProductPrice: price})
+                .then(res => { 
+                    console.log(res)
+                })
+                .catch(err => console.log(err))
+            }else{
+                alert("Please Enter a Number")
+            }
          }else{
-             
-              alert("Please Enter a Number")
+            return;
          }
         }
    

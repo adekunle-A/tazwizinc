@@ -8,17 +8,19 @@ const AddProduct = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
+    const [msg, setMsg] = useState('');
     
     //when add is clicked
     const onSubmit = (e) => {
         e.preventDefault();
-
         //add the product to the database
         axios.post('/api/products', {name,price,description}) //TODO to call function from context
             .then(res => {
                console.log(res)
+               setMsg('Product add successfully!');
             })
             .catch(err =>{ 
+                setMsg('Unable to add product');
                 console.error(err);
         })
     }
@@ -40,7 +42,9 @@ const AddProduct = () => {
                         </Button>
                     </div>
                 </div>
+                <div>{msg}</div>
             </form>
+            
 
         )
 }
