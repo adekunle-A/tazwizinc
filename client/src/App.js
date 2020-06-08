@@ -14,14 +14,7 @@ import ErrorPage from './components/ErrorPage'
 import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   const token = localStorage.getItem('authToken');
-
-useEffect(() => {
-  console.log(token)
-  console.log(token !== null)
-  if(token !== null || token !== ''){
-    console.log(token)
-  }
-})
+  
   return (
     <BrowserRouter>
       < UserProvider>
