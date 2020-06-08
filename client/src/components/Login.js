@@ -1,30 +1,31 @@
-import React, {useState,useEffect,useContext} from 'react'
+import React, {useState,useContext} from 'react'
 import { Button,Card,FormControl,FormGroup,Form} from 'react-bootstrap';
 import {UserContext} from '../context/UsersContext'
+
 import axios from 'axios'
  const Login = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [users, setUsers] = useContext(UserContext)
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [errMsg, setErrMsg] = useState('')
+    const [isAuth, setIsAuth] = useContext(UserContext)
     
     //handle when login is clicked
     const onLogin = (e) => {
         e.preventDefault();
-        console.log(email)
-        console.log(password)
         axios.post('/api/authUsers',{email, password})
-            .then(res => {
-                console.log(res.data.users)
-                if(res.data.users){
-                    setIsLoggedIn(true)
-                    //history.push('/dashboard');
+            .then(res => { 
+               if(res.data.users){
+                    setIsAuth(res.data.users.status)
+                    localStorage.setItem('authToken', res.data.token)
+                    localStorage.setItem('isAuth', res.data.users.status)
+                    console.log(res.data.token)
+                    props.history.push('/dashboard')
                 }
-            setUsers(res.data)
-            }).catch(err =>{ console.error(err);
+                setErrMsg("Invalid information Entered");
+           // setUsers(res.data)
+            }).catch(err =>{  setErrMsg("Invalid information Entered");;
         })
     }
-
 
     return (
         <div>
@@ -38,12 +39,13 @@ import axios from 'axios'
                     <FormGroup>
                         <FormControl type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                     </FormGroup>
-
-                    <Button variant="outline-primary" size="lg" type="submit">
+                    <p>{errMsg}</p>
+                    <Button variant="outline-primary" size="lg" type="submit" >
                         Login
                     </Button>
 
                 </Form>
+                {/* { !isLoggedIn ? null : <Redirect to="/dashboard" /> } */}
             </Card>
         </div>
     )

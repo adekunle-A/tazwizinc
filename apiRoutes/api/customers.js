@@ -1,12 +1,16 @@
+/**
+ * Handles the api routes for customers 
+ **/
 const express = require("express");
 const router = express.Router();
 const Customer = require('../../DB/Customer');
+const auth = require('../../authMiddleware/authentication')
 
 // GET api/customer
 //@desc  Get All customers
 //@acesss public
 
-router.get('/', (req, res) => { 
+router.get('/', auth, (req, res) => { 
     Customer.find()
            .then(customers => res.json(customers));
 });
@@ -25,10 +29,8 @@ router.post('/', (req, res) => {
         address:  req.body.address,
         approved:  req.body.approved
     })
-    console.log(req.body)
     //save the product to the database
-    newCustomer.save()
-              .then(customer => res.json(customer)) 
+    newCustomer.save().then(customer => res.json(customer)) 
 });
 
 //PATCH

@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import {ProductContext} from '../context/ProductContext'
 import {Container,Button, Table} from 'react-bootstrap'
 import AddProduct from '../components/AddProduct';
+import MenuBar from '../components/MenuBar';
 import Moment from 'react-moment';
 import axios from 'axios'
 const Products = () => {
@@ -10,6 +11,7 @@ const Products = () => {
    const [price, setPrice] = useState('');  
    const [editing, SetEditing] = useState(false)
    const [product, setProduct] = useContext(ProductContext)
+   const [getPrice, SetGetPrice] = useContext(ProductContext)
 
     //delete product when remove is clicked
    const deleteProduct = (id) => {
@@ -25,15 +27,19 @@ const Products = () => {
     //save the data once the save button is clicked
     const SaveProduct = (pID) => {
         SetEditing(false);
-        console.log(price)
-        axios.patch('/api/products/'+ pID, {ProductPrice: price})
-        .then(res => { 
-            console.log(res)
-        })
-        .catch(err => console.log(err))
-        
-     }
-
+        if(price != '' && !isNaN(price)){
+            axios.patch('/api/products/'+ pID, {ProductPrice: price})
+            .then(res => { 
+                console.log(res)
+            })
+            .catch(err => console.log(err))
+            
+         }else{
+             
+              alert("Please Enter a Number")
+         }
+        }
+   
      //sets edit mode
     const EditProduct = (id) => {
         SetEditing( editing => !editing);
@@ -41,6 +47,7 @@ const Products = () => {
 
     return (
         <Container className="container" id="dataDiv" fluid>
+             <MenuBar />
              <div>
                  <h2 className="pb-2">Add Product</h2>
                 <AddProduct />
@@ -64,8 +71,9 @@ const Products = () => {
                             <td contenteditable={editing} onInput={(e) => setName(e.target.innerText)} >
                                 {productName}
                             </td>
-                            <td contenteditable='true' onInput={(e) => setPrice(e.target.innerText)}>
-                                    {/* <input value ={price} onChange={(e) => setPricee(e.target.price)}/> */}
+                            <td contenteditable="true" type={"number"} onInput={(e) => setPrice(e.target.innerText)}>
+                                {/* {editing ?  <input value ={ProductPrice} type={"number"} onChange={(e) => setPrice(e.target.price)}/> : ProductPrice } */}
+                                    {/* <input value ={price} type={"number"} onChange={(e) => setPrice(e.target.price)}/> */}
                                 {ProductPrice}
                             </td>
                             <td>

@@ -1,4 +1,4 @@
-//models
+//models for products
 const mongoose = require('mongoose')
 
 //create new schma

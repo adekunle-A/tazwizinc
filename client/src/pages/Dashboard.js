@@ -1,17 +1,17 @@
-import React, {useContext } from 'react';
-import Products from '../components/Products'
-import Customers from '../components/Customers';
-import  UsersContext from '../context/UsersContext'
-
+import React from 'react';
+import Products from '../components/Products';
+import MenuBar from '../components/MenuBar';
+import AddProduct from '../components/AddProduct';
+//dashbaord page
 const Dashboard = () => {
-    const msg = useContext(UsersContext)
     return (
-            <div className="container" id="dashboard">
-                {/* <Products /> */}
-                <Customers />
-                {msg}
-            </div>
-        )
-    }
+        <div className="container" id="dashboard">
+             <MenuBar />
+             <h2> Add Product </h2>
+            <AddProduct />
+            
+        </div>
+    )
+}
 
 export default Dashboard

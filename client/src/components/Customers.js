@@ -1,23 +1,25 @@
 import React, {useContext, useState } from 'react'
 import {CustomerContext} from '../context/CustomerContext'
 import {Container,Table} from 'react-bootstrap'
+import MenuBar from '../components/MenuBar';
 import axios from 'axios'
-const Customers = () => {
+
+//customers components  
+const Customers = (props) => {
     const [customer, setCustomer] = useContext(CustomerContext)
     const [approve, setApprove] = useState(false)
-     
+
      //when the check box is toggled
-    const handleCheckboxChange = (docid) =>{
+    const handleCheckboxChange = (customerid) =>{
         setApprove(!approve)
-        axios.patch('/api/customers/'+ docid, {approved: approve})
-        .then(res => { 
-            console.log(res)
-        })
-        .catch(err => console.log(err))
-        
-     }
+        axios.patch('/api/customers/'+ customerid, {approved: approve})
+             .then(res => { console.log(res) })
+             .catch(err => console.log(err))
+    }
+
     return (
         <Container className="container" id="dataDiv" fluid>
+            <MenuBar/>
             <Table Table striped hover className="mb-0">
                 <thead>
                     <tr>

@@ -1,8 +1,11 @@
+/**
+ * Handles the api routes for users authentication 
+ **/
 const Router  = require('express');
 const User =  require('../../DB/User');
 const jwt = require('jsonwebtoken');
 const router = Router();
-const auth = require('../../authentication')
+const auth = require('../../authMiddleware/authentication')
 
 //auth/user
 //get user data
@@ -20,7 +23,7 @@ router.get('/user', auth,(req, res) => {
 //Post   api/authUsers
 router.post('/', (req, res) => { 
     const {email, password} = req.body
-
+    console.log(req.body)
     User.findOne({email})
         .then(user => {
         if(!user){
@@ -35,15 +38,17 @@ router.post('/', (req, res) => {
                 {expiresIn: 3000},
                 (err, token) => {
                     if(err){
-                        throw err
+                        return res.status(400).json({msg:'User does not exists'})
+                        //throw err
                     }
-                    return res.status(200).json({
+                    //set the token as the header of the response
+                   res.header('authtoken', token)
+                    res.status(200).json({
                         token, 
                         users:{
                             status:true,
                             id: user.id,
                             email: user.email,
-                            password: user.password
                         }
                     })
                 }
@@ -51,7 +56,6 @@ router.post('/', (req, res) => {
         }
     })
         .catch(err => res.status(500).json({error: "Error Occured"}))
-
  
 });
 

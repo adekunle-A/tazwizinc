@@ -1,6 +1,5 @@
-//models
+//database models for customer
 const mongoose = require('mongoose')
-
 //create new schema
  const CustomersSchemas = new mongoose.Schema({
     UID:{

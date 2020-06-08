@@ -1,4 +1,4 @@
-import React, {useState,useContext} from 'react'
+import React, {useState,useEffect} from 'react'
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Login from './components/Login';
@@ -10,30 +10,39 @@ import Customers from './components/Customers';
 import {BrowserRouter, Switch,Redirect,Route} from 'react-router-dom'
 import { CustomerProvider } from './context/CustomerContext';
 import {UserProvider} from './context/UsersContext';
-
+import ErrorPage from './components/ErrorPage'
+import ProtectedRoute from './components/ProtectedRoute';
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const token = localStorage.getItem('authToken');
+  const [user, setUser] = useState(false);
+  var isAuth = false;
+useEffect(() => {
+  console.log(token)
+  console.log(token != null)
+  if(token != null || token != ''){
+    console.log(token)
+    setUser(true)
+  }
+})
   return (
     <BrowserRouter>
-      <CustomerProvider>
-        <ProductProvider>
-            <div className="App">
-                <MenuBar />
-                {/* <Login /> */}
-                <Switch>
-                  {/* <Route path="/" exact={true} component={Login}></Route> */}
-                  < Route exact path="/">
-                    {isLoggedIn ? <Redirect to="/dashboard" /> : <Dashboard />}
-                  </Route>
-                  <Route path="/products" exact component={Products}/>
-                  <Route path="/customers" exact component={Customers}/>
-                  <Route path="/dashboard" exact component={Dashboard}/>
-                </Switch>
-                {/* <Dashboard /> */}
-            </div>
-        </ProductProvider>
-      </CustomerProvider>
+      < UserProvider>
+          <CustomerProvider>
+            <ProductProvider>
+              <div className="App">
+                  <MenuBar />
+                  <Switch>
+                    <Route path="/" exact={true} component={Login}/>
+                    <Route path="/logout" exact={true} component={Login}/>
+                    <ProtectedRoute exact path="/dashboard" auth={token != null}  component={Dashboard}/>
+                    <ProtectedRoute exact path="/products" component={Products}/>
+                    <ProtectedRoute exact path="/customers" component={Customers}/>
+                    <Route  path="*"component={ErrorPage}/>
+                  </Switch>
+              </div>
+            </ProductProvider>
+          </CustomerProvider>
+        </ UserProvider>
     </BrowserRouter>
   );
 }

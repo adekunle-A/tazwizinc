@@ -2,12 +2,11 @@ const express = require('express');
 const app = express();
 const connectDB = require('./DB/DbConnectionConfig');
 const path = require('path')
+const cors = require('cors')
 const productsRoutes = require('./apiRoutes/api/products')
 const usersRoutes = require('./apiRoutes/api/users')
 const authUsersRoutes = require('./apiRoutes/api/authUsers')
 const customersRoutes = require('./apiRoutes/api/customers')
-const cors = require('cors')
-
 const port = process.env.PORT || 3050;
 
 app.use(cors())
@@ -23,9 +22,6 @@ app.use('/api/users', usersRoutes);
 app.use('/api/authUsers', authUsersRoutes);
 app.use('/api/customers', customersRoutes);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client','build', 'index.html'));
-});
 //serves the page if in production
 if(process.env.NODE_ENV === 'production'){
   app.use(express.static('client/build'));

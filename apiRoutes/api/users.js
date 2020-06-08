@@ -1,8 +1,12 @@
+/**
+ * Handles the api routes for adding users to the database 
+ **/
 const Router  = require('express');
 const User =  require('../../DB/User');
 const jwt = require('jsonwebtoken');
 const router = Router();
 
+//GET ** GETS ALL USERS 
 router.get('/', async (req, res) => {
   try {
     const users = await User.find();
@@ -14,6 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 //To STORE New users
+//POST
 router.post('/', (req, res) => { 
   const {email, password} = req.body
   const newUser = new User({

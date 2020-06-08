@@ -5,14 +5,15 @@ export const UserContext = createContext();
 export const UserProvider = props => {
       const [users, setUsers] = useState([]);
       const [isLoggedIn, setIsLoggedIn] = useState(false);
-    //Get Token
+      const [isAuth, setIsAuth] = useState(true);
+
 
     //fetch products infromation from the database
    const getUsers = () => {
-        axios.get('/api/authUsers')
+        axios.get('/api/user')
              .then(res => {
                 setUsers(res.data)
-                setIsLoggedIn(true)
+                console.log(res)
              }).catch(err =>{ console.error(err);
         })
     }
@@ -21,7 +22,7 @@ export const UserProvider = props => {
     });
     
    return (
-       <UserContext.Provider value={[isLoggedIn, setIsLoggedIn] }>
+       <UserContext.Provider value={[isAuth, setIsAuth] }>
            {props.children}
         </UserContext.Provider>  
    )

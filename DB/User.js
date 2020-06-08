@@ -1,4 +1,4 @@
-//models
+//models for user in the database
 const mongoose = require('mongoose')
 
 //create new schma
