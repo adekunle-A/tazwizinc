@@ -13,7 +13,6 @@ export const UserProvider = props => {
         axios.get('/api/user')
              .then(res => {
                 setUsers(res.data)
-                console.log(res)
              }).catch(err =>{ console.error(err);
         })
     }

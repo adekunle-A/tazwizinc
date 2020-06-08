@@ -9,7 +9,8 @@ export const CustomerProvider = props => {
       axios.get('/api/customers',{headers: {'authtoken': localStorage.getItem('authToken')}})
            .then(res => {
                setCustomer(res.data)
-         }).catch(err =>{ console.error(err);
+         }).catch(err =>{ 
+            //console.error(err);
       })
     }
     
