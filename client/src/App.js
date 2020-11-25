@@ -12,6 +12,7 @@ import { CustomerProvider } from './context/CustomerContext';
 import {UserProvider} from './context/UsersContext';
 import ErrorPage from './components/ErrorPage'
 import ProtectedRoute from './components/ProtectedRoute';
+import SignUp from './pages/SignUp';
 function App() {
   const token = localStorage.getItem('authToken');
   
@@ -23,7 +24,8 @@ function App() {
               <div className="App">
                   <MenuBar />
                   <Switch>
-                    <Route path="/" exact={true} component={Login}/>
+                    <Route path="/" exact={true} component={SignUp}/>
+                    <Route path="/login" exact={true} component={Login}/>
                     <Route path="/logout" exact={true} component={Login}/>
                     <ProtectedRoute exact path="/dashboard" auth={token !== null}  component={Dashboard}/>
                     <ProtectedRoute exact path="/products" component={Products}/>

@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
 //To STORE New users
 //POST
 router.post('/', (req, res) => { 
-  const {email, password} = req.body
+  const {email, password, password2} = req.body 
   const newUser = new User({
     email: email,
     password: password

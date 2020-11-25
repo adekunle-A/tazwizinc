@@ -1,37 +1,43 @@
 import React, {useState,useContext} from 'react'
 import { Button,Card,FormControl,FormGroup,Form} from 'react-bootstrap';
-import {UserContext} from '../context/UsersContext'
-
 import axios from 'axios'
- const Login = (props) => {
+
+const SignUp = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [errMsg, setErrMsg] = useState('')
-    const [isAuth, setIsAuth] = useContext(UserContext)
-    
+    const [showMsg, setShowMsg] = useState(false)
+   //const [isAuth, setIsAuth] = useContext(UserContext)
+       
     //handle when login is clicked
-    const onLogin = (e) => {
+    const onSignUp = (e) => {
         e.preventDefault();
-        axios.post('/api/authUsers',{email, password})
+        if(password !== confirmPassword){
+            setErrMsg("Password must Match!");
+            setShowMsg(true)
+        }else{
+        setShowMsg(false);
+        axios.post('/api/users',{email, password})
             .then(res => { 
+                console.log(res)
                if(res.data.users){
-                    setIsAuth(res.data.users.status)
-                    localStorage.setItem('authToken', res.data.token)
-                    localStorage.setItem('isAuth', res.data.users.status)
-                    console.log(res.data.token)
-                    props.history.push('/dashboard')
+                 
+                    props.history.push('/login')
+                    
                 }
                 setErrMsg("Invalid information Entered");
            // setUsers(res.data)
-            }).catch(err =>{  setErrMsg("Invalid information Entered");;
+            }).catch(err =>{  setErrMsg("Invalid information Entered");
+            setShowMsg(true);
         })
     }
-
+    }
     return (
         <div>
             <Card style={{ marginTop:'14%', width: '50%', marginRight:'15%',  marginLeft:'25%'  }}>
-                <Form id="FormCSS" onSubmit={onLogin}> 
-                    <h2>Login</h2>
+                <Form id="FormCSS" onSubmit={onSignUp}> 
+                    <h2>Register</h2>
                     <FormGroup>
                         <FormControl type="email" name="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                     </FormGroup>
@@ -39,10 +45,17 @@ import axios from 'axios'
                     <FormGroup>
                         <FormControl type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                     </FormGroup>
-                    <p>{errMsg}</p>
+
+                    <FormGroup>
+                        <FormControl type="password" name="newPassword" placeholder="ConfirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
+                    </FormGroup>
+                    {showMsg ? <p className="alert alert-danger">{errMsg}</p> : null }
                     <Button variant="outline-primary" size="lg" type="submit" >
-                        Login
+                        Register
                     </Button>
+                    <div className="container signin">
+                        <p>Already have an account? <a href="/">Sign in</a>.</p>
+                    </div>
                 </Form>
                 {/* { !isLoggedIn ? null : <Redirect to="/dashboard" /> } */}
             </Card>
@@ -50,4 +63,4 @@ import axios from 'axios'
     )
 }
 
-export default Login;
+export default SignUp
