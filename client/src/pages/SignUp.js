@@ -54,7 +54,7 @@ const SignUp = (props) => {
                         Register
                     </Button>
                     <div className="container signin">
-                        <p>Already have an account? <a href="/">Sign in</a>.</p>
+                        <p>Already have an account? <a href="/login">Sign in</a>.</p>
                     </div>
                 </Form>
                 {/* { !isLoggedIn ? null : <Redirect to="/dashboard" /> } */}

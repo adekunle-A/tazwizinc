@@ -18,13 +18,13 @@ function App() {
   
   return (
     <BrowserRouter>
-      < UserProvider>
+      <UserProvider>
           <CustomerProvider>
             <ProductProvider>
               <div className="App">
                   <MenuBar />
                   <Switch>
-                    <Route path="/" exact={true} component={SignUp}/>
+                    <Route path="/" exact={true} component={Login}/>
                     <Route path="/login" exact={true} component={Login}/>
                     <Route path="/logout" exact={true} component={Login}/>
                     <ProtectedRoute exact path="/dashboard" auth={token !== null}  component={Dashboard}/>
