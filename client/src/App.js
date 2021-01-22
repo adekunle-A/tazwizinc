@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Login from './pages/Login';
 import MenuBar from './components/MenuBar';
 import {ProductProvider} from './context/ProductContext'
+import { withRouter } from "react-router";
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Customers from './pages/Customers';
@@ -13,6 +14,7 @@ import {UserProvider} from './context/UsersContext';
 import ErrorPage from './components/ErrorPage'
 import ProtectedRoute from './components/ProtectedRoute';
 import SignUp from './pages/SignUp';
+const HeaderWithRouter = withRouter(MenuBar);
 function App() {
   const token = localStorage.getItem('authToken');
   
@@ -22,9 +24,10 @@ function App() {
           <CustomerProvider>
             <ProductProvider>
               <div className="App">
-                  <MenuBar />
+                  <HeaderWithRouter />
                   <Switch>
                     <Route path="/" exact={true} component={Login}/>
+                    <Route path="/signup" exact={true} component={SignUp}/>
                     <Route path="/login" exact={true} component={Login}/>
                     <Route path="/logout" exact={true} component={Login}/>
                     <ProtectedRoute exact path="/dashboard" auth={token !== null}  component={Dashboard}/>

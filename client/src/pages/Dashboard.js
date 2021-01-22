@@ -5,7 +5,7 @@ import AddProduct from '../components/AddProduct';
 const Dashboard = () => {
     return (
         <div className="container" id="dashboard">
-             <MenuBar />
+            
              <h2> Add Product </h2>
             <AddProduct />
             

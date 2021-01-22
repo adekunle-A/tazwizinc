@@ -43,6 +43,9 @@ import axios from 'axios'
                     <Button variant="outline-primary" size="lg" type="submit" >
                         Login
                     </Button>
+                    <div className="container signin">
+                        <p>Don't have an account? <a href="/signup">Sign Up</a>.</p>
+                    </div>
                 </Form>
                 {/* { !isLoggedIn ? null : <Redirect to="/dashboard" /> } */}
             </Card>

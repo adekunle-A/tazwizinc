@@ -49,7 +49,7 @@ const Products = () => {
 
     return (
         <Container className="container" id="dataDiv" fluid>
-             <MenuBar />
+             {/* <MenuBar /> */}
              <div>
                  <h2 className="pb-2">Add Product</h2>
                 <AddProduct />

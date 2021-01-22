@@ -6,8 +6,10 @@ const SignUp = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [errMsg, setErrMsg] = useState('')
+    const [errMsg, setErrMsg] = useState('') 
+    const [successMsg, setSuccessMsg] = useState('')
     const [showMsg, setShowMsg] = useState(false)
+    const [showMsgSucess, setShowMsgSuccess] = useState(false)
    //const [isAuth, setIsAuth] = useContext(UserContext)
        
     //handle when login is clicked
@@ -20,13 +22,13 @@ const SignUp = (props) => {
         setShowMsg(false);
         axios.post('/api/users',{email, password})
             .then(res => { 
-                console.log(res)
-               if(res.data.users){
-                 
-                    props.history.push('/login')
-                    
-                }
-                setErrMsg("Invalid information Entered");
+                if(res.data.users){
+                        setSuccessMsg("Account Created Succesfully!");
+                        setShowMsgSuccess(true)
+                        //props.history.push('/login')
+                        
+                    }
+                //setErrMsg("Invalid information Entered");
            // setUsers(res.data)
             }).catch(err =>{  setErrMsg("Invalid information Entered");
             setShowMsg(true);
@@ -50,11 +52,12 @@ const SignUp = (props) => {
                         <FormControl type="password" name="newPassword" placeholder="ConfirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
                     </FormGroup>
                     {showMsg ? <p className="alert alert-danger">{errMsg}</p> : null }
+                    {showMsgSucess ? <p className="alert alert-success">{successMsg}</p> : null }
                     <Button variant="outline-primary" size="lg" type="submit" >
                         Register
                     </Button>
                     <div className="container signin">
-                        <p>Already have an account? <a href="/login">Sign in</a>.</p>
+                        <p>Already have an account? <a href="/">Sign in</a>.</p>
                     </div>
                 </Form>
                 {/* { !isLoggedIn ? null : <Redirect to="/dashboard" /> } */}

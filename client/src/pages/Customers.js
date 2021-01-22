@@ -19,7 +19,6 @@ const Customers = (props) => {
 
     return (
         <Container className="container" id="dataDiv" fluid>
-            <MenuBar/>
             <Table Table striped hover className="mb-0">
                 <thead>
                     <tr>
